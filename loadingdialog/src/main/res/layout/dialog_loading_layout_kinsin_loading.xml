@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- 整个布局大小控制 -->
+    <View
+        android:id="@+id/rootAnchorKinsinLoading"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"/>
+
+    <!-- 黄金分割线 -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/goldLineKinsinLoading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3333" />
+
+    <!-- 加载图标 -->
+    <ImageView
+        android:id="@+id/loadingIconKinsinLoading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_loading_black_kinsin_loading"
+        app:layout_constraintStart_toStartOf="@id/rootAnchorKinsinLoading"
+        app:layout_constraintEnd_toEndOf="@id/rootAnchorKinsinLoading"
+        app:layout_constraintTop_toTopOf="@id/goldLineKinsinLoading"
+        app:layout_constraintBottom_toBottomOf="@id/goldLineKinsinLoading"/>
+
+    <TextView
+        android:id="@+id/loadingTextKinsinLoading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/rootAnchorKinsinLoading"
+        app:layout_constraintEnd_toEndOf="@id/rootAnchorKinsinLoading"
+        app:layout_constraintTop_toBottomOf="@id/loadingIconKinsinLoading"
+        app:layout_constraintBottom_toBottomOf="@id/rootAnchorKinsinLoading"
+        android:gravity="center"
+        android:textSize="16sp"
+        tools:text="加载中..."/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
