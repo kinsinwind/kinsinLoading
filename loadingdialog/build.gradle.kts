@@ -5,6 +5,18 @@ plugins {
 }
 group = "com.github.kinsinwind"
 
+afterEvaluate {
+    android.libraryVariants.forEach { variant ->
+        val publicationName = variant.name
+        publishing.publications.create(publicationName, MavenPublication::class.java) {
+            from(components[publicationName])
+            groupId = "com.kinsin"
+            artifactId = "kinsinLoading"
+            version = "1.0.4"
+        }
+    }
+}
+
 android {
     namespace = "com.kinsin.loadingdialog"
     compileSdk = 34
