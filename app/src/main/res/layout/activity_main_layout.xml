@@ -6,28 +6,28 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/startBtnKinsinLoading"
+        android:id="@+id/preBtnKinsinLoading"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="开始"
+        android:text="上一个"
         android:textColor="@color/black"
         android:background="#CDCDCD"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/EndBtnKinsinLoading"
+        app:layout_constraintEnd_toStartOf="@id/nextBtnKinsinLoading"
         android:layout_marginTop="50dp"/>
 
     <TextView
-        android:id="@+id/EndBtnKinsinLoading"
+        android:id="@+id/nextBtnKinsinLoading"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="取消"
+        android:text="下一个"
         android:textColor="@color/black"
         android:background="#CDCDCD"
-        app:layout_constraintStart_toEndOf="@id/startBtnKinsinLoading"
-        app:layout_constraintTop_toTopOf="@id/startBtnKinsinLoading"
+        app:layout_constraintStart_toEndOf="@id/preBtnKinsinLoading"
+        app:layout_constraintTop_toTopOf="@id/preBtnKinsinLoading"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

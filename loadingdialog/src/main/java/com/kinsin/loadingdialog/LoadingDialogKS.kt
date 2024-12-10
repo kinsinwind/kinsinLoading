@@ -5,9 +5,10 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import com.kinsin.demobt.ext.startRotate
-import com.kinsin.demobt.ext.stopRotate
+import android.view.View
 import com.kinsin.loadingdialog.databinding.DialogLoadingLayoutKinsinLoadingBinding
+import com.kinsin.loadingdialog.ext.startRotate
+import com.kinsin.loadingdialog.ext.stopRotate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,9 +23,10 @@ class LoadingDialogKS(
     private val delayAutoDismiss: Long = DELAY_AUTO_DISMISS_DURATION,
     private val textContent: String = DEFAULT_CONTENT,
     private val _isUseCustom: Boolean = false, // 是否启用custom参数
-    private val _customIcon: Int = -1, // 自定义图标-优先级高于_style
-    private val _customTextColor: Int = -1, // 自定义文字颜色-优先级高于_style
-    private val _customBg: Int = -1 // 自定义背景-优先级高于_style
+    private val _customIcon: Int = -1, // 自定义图标
+    private val _customTextColor: Int = -1, // 自定义文字颜色
+    private val _customBg: Int = -1, // 自定义背景
+    private val _isNeedShowBg:Boolean = true, // 是否需要显示背景
 ) : Dialog(context) {
 
     private lateinit var _binding: DialogLoadingLayoutKinsinLoadingBinding
@@ -76,17 +78,36 @@ class LoadingDialogKS(
     }
 
     private fun initView() {
+        _binding.loadingTextKinsinLoading.visibility = View.VISIBLE
+        _binding.loadingIconKinsinLoading.visibility = View.VISIBLE
+        _binding.lottieLoadingView.visibility = View.VISIBLE
+        if (_isNeedShowBg) {
+            _binding.rootAnchorKinsinLoading.visibility = View.VISIBLE
+        } else {
+            _binding.rootAnchorKinsinLoading.visibility = View.INVISIBLE
+        }
         if (_isUseCustom) {
             _binding.rootAnchorKinsinLoading.setBackgroundResource(_customBg)
             _binding.loadingTextKinsinLoading.setTextColor(_customTextColor)
             _binding.loadingIconKinsinLoading.setImageResource(_customIcon)
-            _binding.loadingTextKinsinLoading.text = textContent
         } else {
-            _binding.rootAnchorKinsinLoading.setBackgroundResource(_style.bg)
-            _binding.loadingTextKinsinLoading.setTextColor(_style.textColor)
-            _binding.loadingIconKinsinLoading.setImageResource(_style.img)
-            _binding.loadingTextKinsinLoading.text = textContent
+            when (_style) {
+                Style.LIGHT1, Style.LIGHT2, Style.LIGHT3, Style.DARK1, Style.DARK2, Style.DARK3 -> {
+                    _binding.rootAnchorKinsinLoading.setBackgroundResource(_style.bg)
+                    _binding.loadingTextKinsinLoading.setTextColor(_style.textColor)
+                    _binding.loadingIconKinsinLoading.setImageResource(_style.img)
+                    _binding.lottieLoadingView.visibility = View.GONE
+                }
+
+                Style.LOTTIE_LOADING_1, Style.LOTTIE_LOADING_2, Style.LOTTIE_LOADING_3, Style.LOTTIE_LOADING_4, Style.LOTTIE_LOADING_5 -> {
+                    _binding.loadingTextKinsinLoading.visibility = View.GONE
+                    _binding.loadingIconKinsinLoading.visibility = View.GONE
+                    _binding.lottieLoadingView.setAnimation(_style.raw)
+                }
+            }
         }
+
+        _binding.loadingTextKinsinLoading.text = textContent
 
         // 透明度设置
         _binding.rootAnchorKinsinLoading.alpha = alphaValue
@@ -95,7 +116,8 @@ class LoadingDialogKS(
     enum class Style(
         val bg: Int = R.drawable.white_corner_bg_kinsin_loading,
         val textColor: Int = Color.parseColor("#000000"),
-        val img: Int = R.drawable.ic_loading_black_kinsin_loading
+        val img: Int = R.drawable.ic_loading_black_kinsin_loading,
+        val raw: Int = R.raw.lottie_loading_1
     ) {
         LIGHT1(
             R.drawable.white_corner_bg_kinsin_loading,
@@ -126,6 +148,21 @@ class LoadingDialogKS(
             R.drawable.black_corner_bg_kinsin_loading,
             Color.parseColor("#FFFFFF"),
             R.drawable.ic_loading3_white_kinsin_loading
+        ),
+        LOTTIE_LOADING_1(
+            raw = R.raw.lottie_loading_1
+        ),
+        LOTTIE_LOADING_2(
+            raw = R.raw.lottie_loading_2
+        ),
+        LOTTIE_LOADING_3(
+            raw = R.raw.lottie_loading_3
+        ),
+        LOTTIE_LOADING_4(
+            raw = R.raw.lottie_loading_4
+        ),
+        LOTTIE_LOADING_5(
+            raw = R.raw.lottie_loading_5
         ),
     }
 

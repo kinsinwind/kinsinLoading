@@ -1,7 +1,5 @@
 package com.kinsin.kinsinloading
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.kinsin.kinsinloading.databinding.ActivityMainLayoutBinding
@@ -16,14 +14,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainLayoutBinding.inflate(layoutInflater)
         setContentView(_binding.root)
-        dialogKS = LoadingDialogKS(this@MainActivity, _style = LoadingDialogKS.Style.LIGHT3)
 
-        _binding.startBtnKinsinLoading.setOnClickListener {
+        val allStyles = LoadingDialogKS.Style.entries.toTypedArray()
+        var index: Int = 0
+
+        _binding.preBtnKinsinLoading.setOnClickListener {
+            if (index == 0) {
+                index = allStyles.size - 1
+            } else {
+                index--
+            }
+            dialogKS = LoadingDialogKS(this@MainActivity, _style = allStyles[index], delayAutoDismiss = 2 * 1000)
             dialogKS.show()
         }
 
-        _binding.EndBtnKinsinLoading.setOnClickListener {
-            dialogKS.dismiss()
+        _binding.nextBtnKinsinLoading.setOnClickListener {
+            if (index == allStyles.size - 1) {
+                index = 0
+            } else {
+                index++
+            }
+            dialogKS = LoadingDialogKS(this@MainActivity, _style = allStyles[index], delayAutoDismiss = 2 * 1000)
+            dialogKS.show()
         }
+
     }
 }

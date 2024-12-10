@@ -1,4 +1,4 @@
-package com.kinsin.demobt.ext
+package com.kinsin.loadingdialog.ext
 
 import android.view.View
 import android.animation.ObjectAnimator
